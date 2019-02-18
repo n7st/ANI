@@ -16,3 +16,8 @@ perl hg612-stats.pl \
 
 MIT. See [LICENSE](/LICENSE).
 
+## Further reading
+
+* [Kitz - Huawei Modem](https://kitz.co.uk/routers/openreach-modems.htm#Huawei_modem)
+* [AAISP - Router - EchoLife HG612](https://support.aa.net.uk/Router_-_EchoLife_HG612)
+

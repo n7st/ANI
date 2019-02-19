@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+
+use lib "$FindBin::RealBin/../lib";
+
+use App::Netsplit::Injest::Source::HG612;
+
+my $hg612 = App::Netsplit::Injest::Source::HG612->new({
+    username => '',
+    password => '',
+    address  => '',
+});
+
+$hg612->poll;

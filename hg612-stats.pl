@@ -70,7 +70,7 @@ foreach (@lines) {
 
 my $ua = Mojo::UserAgent->new();
 
-foreach my $type (qw(current max actual_aggregate_tx_power)) {
+foreach my $type (qw(attainable current max actual_aggregate_tx_power)) {
     if ($stats{$type}->{up} > 0 && $stats{$type}->{down} > 0) {
         write_entry(data2line($type, {
             upstream   => $stats{$type}->{up},

@@ -3,16 +3,52 @@
 use strict;
 use warnings;
 
+use Data::Printer;
 use FindBin;
 
 use lib "$FindBin::RealBin/../lib";
 
 use App::Netsplit::Injest::Source::HG612;
+use App::Netsplit::Injest::Destination::InfluxDB;
 
-my $hg612 = App::Netsplit::Injest::Source::HG612->new({
+my $report = App::Netsplit::Injest::Source::HG612->new({
     username => '',
     password => '',
     address  => '',
+})->poll();
+
+my $destination = App::Netsplit::Injest::Destination::InfluxDB->new({
+    scheme  => 'http',
+    address => ''
 });
 
-$hg612->poll;
+foreach my $type (qw(current max actual_aggregate_tx_power)) {
+    if ($report->{$type}->{up} > 0 && $report->{$type}->{down} > 0) {
+        $destination->write_entry($type, {
+            upstream   => $report->{$type}->{up},
+            downstream => $report->{$type}->{down},
+        });
+    }
+}
+
+if ($report->{status}) {
+    # Plain text status entry (useful for table or pie chart style output)
+    $destination->write_entry('status', { value => $report->{status} });
+
+    my $val = 0;
+
+    if ($report->{status} eq 'Showtime') {
+        $val = 4;
+    } elsif ($report->{status} eq 'Training') {
+        $val = 3;
+    } elsif ($report->{status} eq 'Handshake') {
+        $val = 2;
+    } elsif ($report->{status} eq 'Idle') {
+        $val = 1;
+    }
+
+    # Write a second entry with an integer value for compatibility with the
+    # Grafana traffic lights plugin
+    $destination->write_entry('status_i', { value => $val });
+}
+

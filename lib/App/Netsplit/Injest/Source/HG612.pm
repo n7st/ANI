@@ -1,6 +1,5 @@
 package App::Netsplit::Injest::Source::HG612;
 
-use DDP;
 use Moo;
 use Net::Telnet;
 use Types::Standard qw(InstanceOf Str);
@@ -8,8 +7,10 @@ use Types::Standard qw(InstanceOf Str);
 ################################################################################
 
 has address  => (is => 'ro', isa => Str, required => 1);
-has password => (is => 'ro', isa => Str, required => 1);
-has username => (is => 'ro', isa => Str, required => 1);
+has password => (is => 'ro', isa => Str, required => 0);
+has username => (is => 'ro', isa => Str, required => 0);
+
+has scheme => (is => 'ro', isa => Str, default => 'http');
 
 has prompt  => (is => 'ro', isa => Str, default => '/# $/');
 has command => (is => 'ro', isa => Str, default => 'xdslcmd info --pbParams');
@@ -31,9 +32,7 @@ sub poll {
 
     my $report = $self->_parse_stats([ $self->telnet->cmd($self->command) ]);
 
-    p $report;
-
-    return 1;
+    return $report;
 }
 
 ################################################################################

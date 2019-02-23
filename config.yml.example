@@ -1,0 +1,21 @@
+destinations:
+    influxdb:
+        # Required config:
+        address: 127.0.0.1:8086
+
+        # Optional config:
+        scheme:   http
+        #username: myuser
+        #password: mypasswd
+
+sources:
+    hg612:
+        # All config items are required:
+        enabled:  true
+        username: admin
+        password: admin
+        address:  192.168.1.1
+
+        # Data injest location
+        influxdb_database: hg612
+

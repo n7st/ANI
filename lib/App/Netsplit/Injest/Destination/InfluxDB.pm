@@ -8,6 +8,7 @@ use InfluxDB::LineProtocol 'data2line';
 ################################################################################
 
 has address  => (is => 'ro', isa => Str, required => 1);
+has database => (is => 'ro', isa => Str, required => 1);
 has password => (is => 'ro', isa => Str, required => 0);
 has username => (is => 'ro', isa => Str, required => 0);
 
@@ -20,10 +21,10 @@ has url => (is => 'ro', isa => Str,                           lazy => 1, builder
 
 sub write_entry {
     my $self  = shift;
-    my $db    = shift;
+    my $table = shift;
     my $input = shift;
 
-    my $data = data2line($db, $input);
+    my $data = data2line($table, $input);
 
     # TODO: error handling
     return $self->ua->post($self->url => { Accept => '*/*' } => $data);
@@ -38,7 +39,7 @@ sub _build_ua {
 sub _build_url {
     my $self = shift;
 
-    my $url = $self->address;
+    my $url = sprintf('%s/write?db=%s', $self->address, $self->database);
 
     if ($self->username && $self->password) {
         # Basic auth

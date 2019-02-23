@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Data::Printer;
+use FindBin;
+
+use lib "$FindBin::RealBin/../lib";
+
+use App::Netsplit::Injest::Process::HG612;
+
+my $hg612 = App::Netsplit::Injest::Process::HG612->new();
+
+p $hg612->process();
+

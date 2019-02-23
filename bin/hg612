@@ -8,18 +8,22 @@ use FindBin;
 
 use lib "$FindBin::RealBin/../lib";
 
+use App::Netsplit::Injest::Config;
 use App::Netsplit::Injest::Source::HG612;
 use App::Netsplit::Injest::Destination::InfluxDB;
 
+my $config = App::Netsplit::Injest::Config->new();
+
 my $report = App::Netsplit::Injest::Source::HG612->new({
-    username => '',
-    password => '',
-    address  => '',
+    address  => $config->{sources}->{hg612}->{address},
+    password => $config->{sources}->{hg612}->{password},
+    username => $config->{sources}->{hg612}->{username},
 })->poll();
 
 my $destination = App::Netsplit::Injest::Destination::InfluxDB->new({
-    scheme  => 'http',
-    address => ''
+    address  => $config->{destinations}->{influxdb}->{address},
+    database => $config->{sources}->{hg612}->{influxdb_database},
+    scheme   => $config->{destinations}->{influxdb}->{scheme},
 });
 
 foreach my $type (qw(current max actual_aggregate_tx_power)) {

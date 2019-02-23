@@ -1,15 +1,16 @@
-# HG612 Stats
+# ANI
 
-Work in progress. Send stats from a Huawei HG612 modem to an InfluxDB database.
+Work in progress. Send stats from your network to InfluxDB.
 
 ## Usage
 
+Copy `config.yml.example` to `config.yml` and edit it with your own
+configuration.
+
+Run the poller:
+
 ```
-perl hg612-stats.pl \
-    -u admin        \                          # HG612 username
-    -p admin        \                          # HG612 password
-    -a 192.168.1.1  \                          # HG612 address
-    -i http://192.168.1.2:8086/write?db=hg612; # InfluxDB database
+perl bin/ani
 ```
 
 ## License

@@ -1,0 +1,23 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+workspace:
+  base: /opt
+  path: ANI
+
+steps:
+- name: build
+  pull: default
+  image: poum/distzilla
+  commands:
+  - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --verbose --notest --quiet"
+  - "dzil listdeps --author --missing | xargs -n 5 -P 10 cpanm --verbose --no-interactive --notest --quiet"
+  - dzil smoke
+
+...
+

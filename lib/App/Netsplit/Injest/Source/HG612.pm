@@ -15,8 +15,6 @@ has scheme => (is => 'ro', isa => Str, default => 'http');
 has prompt  => (is => 'ro', isa => Str, default => '/# $/');
 has command => (is => 'ro', isa => Str, default => 'xdslcmd info --pbParams');
 
-has telnet => (is => 'ro', isa => InstanceOf['Net::Telnet'], lazy => 1, builder => '_build_telnet');
-
 ################################################################################
 
 sub poll {
@@ -107,11 +105,6 @@ sub _parse_stats {
     }
 
     return \%stats;
-}
-
-################################################################################
-
-sub _build_telnet {
 }
 
 ################################################################################

@@ -12,6 +12,8 @@ use App::Netsplit::Injest::Config;
 
 use constant CFG_FILENAME => 't/etc/config.yml';
 
+is(App::Netsplit::Injest::Config->new->filename, 'config.yml', 'Default filename');
+
 $ENV{ANI_CONFIG} = CFG_FILENAME;
 
 my $util = App::Netsplit::Injest::Config->new();

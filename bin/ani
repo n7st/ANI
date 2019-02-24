@@ -3,14 +3,11 @@
 use strict;
 use warnings;
 
-use Data::Printer;
 use FindBin;
 
 use lib "$FindBin::RealBin/../lib";
 
 use App::Netsplit::Injest;
 
-my $poller = App::Netsplit::Injest->new();
-
-p $poller->poll();
+App::Netsplit::Injest->new->poll();
 

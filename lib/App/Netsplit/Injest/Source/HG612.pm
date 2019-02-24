@@ -1,6 +1,5 @@
 package App::Netsplit::Injest::Source::HG612;
 
-use DDP;
 use Moo;
 use Net::Telnet;
 use Types::Standard qw(InstanceOf Str);
@@ -36,9 +35,7 @@ sub poll {
     $telnet->prompt($self->prompt);
     $telnet->waitfor($self->prompt);
 
-    my $report = $self->_parse_stats([ $telnet->cmd($self->command) ]);
-
-    return $report;
+    return $self->_parse_stats([ $telnet->cmd($self->command) ]);
 }
 
 ################################################################################

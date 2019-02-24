@@ -1,6 +1,5 @@
 package App::Netsplit::Injest;
 
-use DDP;
 use Mojo::IOLoop;
 use Mojo::IOLoop::Delay;
 use Moo;

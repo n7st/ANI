@@ -2,6 +2,14 @@
 
 Work in progress. Send stats from your network to InfluxDB.
 
+## Supported sources
+
+* Huawei HG612 modems
+
+## Supported destinations
+
+* InfluxDB
+
 ## Usage
 
 Copy `config.yml.example` to `config.yml` and edit it with your own

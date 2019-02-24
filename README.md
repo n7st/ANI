@@ -1,5 +1,7 @@
 # ANI
 
+[![Build Status](https://drone.netsplit.uk/api/badges/mike/ANI/status.svg)](https://drone.netsplit.uk/mike/ANI)
+
 Work in progress. Send stats from your network to InfluxDB.
 
 ## Supported sources

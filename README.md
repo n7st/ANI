@@ -23,7 +23,7 @@ perl bin/ani
 
 ## License
 
-MIT. See [LICENSE](/LICENSE).
+MIT. See [LICENSE.txt](/LICENSE.txt).
 
 ## Further reading
 

@@ -1,7 +1,18 @@
+# Setting active_polling to true will set the application to run an event loop.
+# If you would rather it not do that, keep it false and use cron.
+active_polling: 1
+
+# Available levels: debug, info, warn, error, fatal
+log_level: debug
+
+processors:
+    - source:      HG612
+      destination: InfluxDB
+
 destinations:
-    influxdb:
+    InfluxDB:
         # Required config:
-        address: 127.0.0.1:8086
+        address: my.influxdb.server:8086
 
         # Optional config:
         scheme:   http
@@ -9,9 +20,8 @@ destinations:
         #password: mypasswd
 
 sources:
-    hg612:
+    HG612:
         # All config items are required:
-        enabled:  true
         username: admin
         password: admin
         address:  192.168.1.1

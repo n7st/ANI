@@ -1,5 +1,6 @@
 package App::Netsplit::Injest::Source::HG612;
 
+use DDP;
 use Moo;
 use Net::Telnet;
 use Types::Standard qw(InstanceOf Str);
@@ -22,15 +23,20 @@ has telnet => (is => 'ro', isa => InstanceOf['Net::Telnet'], lazy => 1, builder 
 sub poll {
     my $self = shift;
 
+    my $telnet = Net::Telnet->new(
+        prompt  => '/[\$%#>]$/',
+        timeout => 20,
+    );
+
     # TODO: exceptions
-    $self->telnet->open($self->address);
-    $self->telnet->login($self->username, $self->password);
+    $telnet->open($self->address);
+    $telnet->login($self->username, $self->password);
 
-    $self->telnet->print('sh');
-    $self->telnet->prompt($self->prompt);
-    $self->telnet->waitfor($self->prompt);
+    $telnet->print('sh');
+    $telnet->prompt($self->prompt);
+    $telnet->waitfor($self->prompt);
 
-    my $report = $self->_parse_stats([ $self->telnet->cmd($self->command) ]);
+    my $report = $self->_parse_stats([ $telnet->cmd($self->command) ]);
 
     return $report;
 }
@@ -109,10 +115,6 @@ sub _parse_stats {
 ################################################################################
 
 sub _build_telnet {
-    return Net::Telnet->new(
-        prompt  => '/[\$%#>]$/',
-        timeout => 20,
-    );
 }
 
 ################################################################################

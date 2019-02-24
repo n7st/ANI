@@ -5,6 +5,8 @@ use Moo;
 use Types::Standard qw(InstanceOf Str);
 use InfluxDB::LineProtocol 'data2line';
 
+with 'App::Netsplit::Injest::Role::Logger';
+
 ################################################################################
 
 has address  => (is => 'ro', isa => Str, required => 1);
@@ -24,10 +26,17 @@ sub write_entry {
     my $table = shift;
     my $input = shift;
 
-    my $data = data2line($table, $input);
+    my $res = $self->ua->post($self->url => {
+        Accept => '*/*',
+    } => data2line($table, $input))->res;
 
-    # TODO: error handling
-    return $self->ua->post($self->url => { Accept => '*/*' } => $data);
+    unless ($res->is_success) {
+        $self->logger->warn(sprintf('Bad response: %d - %s', $res->code, $res->message));
+
+        return 0;
+    }
+
+    return 1;
 }
 
 ################################################################################

@@ -8,9 +8,9 @@ use FindBin;
 
 use lib "$FindBin::RealBin/../lib";
 
-use App::Netsplit::Injest::Process::HG612;
+use App::Netsplit::Injest;
 
-my $hg612 = App::Netsplit::Injest::Process::HG612->new();
+my $poller = App::Netsplit::Injest->new();
 
-p $hg612->process();
+p $poller->poll();
 

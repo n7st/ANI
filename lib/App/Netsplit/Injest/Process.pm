@@ -1,7 +1,7 @@
 package App::Netsplit::Injest::Process;
 
 use Moo;
-use Types::Standard 'Object';
+use Types::Standard qw(Object Str);
 
 use App::Netsplit::Injest::Exception::NotImplementedError;
 
@@ -11,6 +11,9 @@ with 'App::Netsplit::Injest::Role::Config';
 
 has source      => (is => 'ro', isa => Object, lazy => 1, builder => '_build_source');
 has destination => (is => 'ro', isa => Object, lazy => 1, builder => '_build_destination');
+
+# TODO: when there are more destinations, this will be required
+has destination_name => (is => 'ro', isa => Str, required => 0);
 
 ################################################################################
 

@@ -39,7 +39,7 @@ sub process {
         });
     }
 
-    return 0;
+    return 1;
 }
 
 ################################################################################
@@ -65,26 +65,28 @@ sub _status_to_i {
 sub _build_destination {
     my $self = shift;
 
+    # TODO: honour $self->destination_name when there are more destinations
+
     return App::Netsplit::Injest::Destination::InfluxDB->new({
-        address  => $self->config->{destinations}->{influxdb}->{address},
+        address  => $self->config->{destinations}->{InfluxDB}->{address},
         database => $self->influxdb_database,
-        scheme   => $self->config->{destinations}->{influxdb}->{scheme},
+        scheme   => $self->config->{destinations}->{InfluxDB}->{scheme},
     });
 }
 
 sub _build_influxdb_database {
     my $self = shift;
 
-    return $self->config->{sources}->{hg612}->{influxdb_database};
+    return $self->config->{sources}->{HG612}->{influxdb_database};
 }
 
 sub _build_source {
     my $self = shift;
 
     return App::Netsplit::Injest::Source::HG612->new({
-        address  => $self->config->{sources}->{hg612}->{address},
-        password => $self->config->{sources}->{hg612}->{password},
-        username => $self->config->{sources}->{hg612}->{username},
+        address  => $self->config->{sources}->{HG612}->{address},
+        password => $self->config->{sources}->{HG612}->{password},
+        username => $self->config->{sources}->{HG612}->{username},
     });
 }
 

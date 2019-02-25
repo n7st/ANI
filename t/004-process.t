@@ -10,16 +10,16 @@ use Test::Most;
 
 use lib "$FindBin::RealBin/../lib";
 
-use App::Netsplit::Injest::Process;
+use App::Netsplit::Ingest::Process;
 
-ok my $process = App::Netsplit::Injest::Process->new();
+ok my $process = App::Netsplit::Ingest::Process->new();
 
-my $ex = 'App::Netsplit::Injest::Exception::NotImplementedError';
+my $ex = 'App::Netsplit::Ingest::Exception::NotImplementedError';
 
 throws_ok { $process->source      } $ex, 'Source threw correctly';
 throws_ok { $process->destination } $ex, 'Destination threw correctly';
 
-$process = App::Netsplit::Injest::Process->new({
+$process = App::Netsplit::Ingest::Process->new({
     source      => Test::MockObject->new(),
     destination => Test::MockObject->new(),
 });

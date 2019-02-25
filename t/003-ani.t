@@ -8,11 +8,11 @@ use Test::Most;
 
 use lib "$FindBin::RealBin/../lib";
 
-use App::Netsplit::Injest;
+use App::Netsplit::Ingest;
 
 $ENV{ANI_CONFIG} = 't/etc/config.yml';
 
-ok my $ani = App::Netsplit::Injest->new();
+ok my $ani = App::Netsplit::Ingest->new();
 
 is $ani->ioloop_tick, 60, 'Default tick length is correct';
 

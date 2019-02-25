@@ -9,11 +9,11 @@ use Test::Most;
 
 use lib "$FindBin::RealBin/../lib";
 
-use App::Netsplit::Injest::Process::HG612;
+use App::Netsplit::Ingest::Process::HG612;
 
 $ENV{ANI_CONFIG} = 't/etc/config.yml';
 
-ok my $hg612 = App::Netsplit::Injest::Process::HG612->new();
+ok my $hg612 = App::Netsplit::Ingest::Process::HG612->new();
 
 lives_ok { $hg612->source      } 'Source is set';
 lives_ok { $hg612->destination } 'Destination is set';

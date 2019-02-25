@@ -8,15 +8,15 @@ use Test::Most;
 
 use lib "$FindBin::RealBin/../lib";
 
-use App::Netsplit::Injest::Config;
+use App::Netsplit::Ingest::Config;
 
 use constant CFG_FILENAME => 't/etc/config.yml';
 
-is(App::Netsplit::Injest::Config->new->filename, 'config.yml', 'Default filename');
+is(App::Netsplit::Ingest::Config->new->filename, 'config.yml', 'Default filename');
 
 $ENV{ANI_CONFIG} = CFG_FILENAME;
 
-my $util = App::Netsplit::Injest::Config->new();
+my $util = App::Netsplit::Ingest::Config->new();
 
 is $util->filename, CFG_FILENAME, 'Config filename set correctly from env';
 
